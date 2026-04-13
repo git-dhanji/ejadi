@@ -69,50 +69,38 @@ export default function ProjectsPage() {
         </div>
       </Container>
 
-      {/* Projects Editorial Grid */}
+      {/* Projects Grid */}
       <Container>
-        <motion.div 
-          layout
-          className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16"
-        >
-          <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="popLayout">
+          <div className="grid grid-cols-1 sm:grid-cols-10 gap-6 md:gap-8">
             {filteredProjects.map((project, index) => {
-              // Create an asymmetric editorial spread pattern
-              const layoutCycle = index % 5;
-              let gridClasses = '';
-              switch (layoutCycle) {
-                case 0:
-                  gridClasses = 'md:col-span-8 md:col-start-1'; // Large left
-                  break;
-                case 1:
-                  gridClasses = 'md:col-span-4 md:col-start-9 md:mt-32'; // Small right, pushed down
-                  break;
-                case 2:
-                  gridClasses = 'md:col-span-5 md:col-start-2'; // Medium left indented
-                  break;
-                case 3:
-                  gridClasses = 'md:col-span-6 md:col-start-7 md:mt-16'; // Medium right staggered
-                  break;
-                case 4:
-                  gridClasses = 'md:col-span-10 md:col-start-2 md:mt-24'; // Massive center standout
-                  break;
-                default:
-                  gridClasses = 'md:col-span-12';
-              }
+              // Exact layout per position:
+              // 0 → full (10), 1 → 5, 2 → 5, 3 → 3, 4 → 7, 5 → full (10)
+              const colMap: Record<number, string> = {
+                0: 'sm:col-span-10',
+                1: 'sm:col-span-5',
+                2: 'sm:col-span-5',
+                3: 'sm:col-span-3',
+                4: 'sm:col-span-7',
+                5: 'sm:col-span-10',
+              };
+              const colClass = colMap[index] ?? 'sm:col-span-5';
+              const isFullWidth = index === 0 || index === filteredProjects.length - 1;
 
               return (
                 <motion.div
                   key={project.id}
                   layout
-                  initial={{ opacity: 0, y: 50 }}
+                  initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-10% 0px" }}
-                  transition={{ 
-                    duration: 0.8, 
-                    delay: 0.1,
-                    ease: [0.22, 1, 0.36, 1]
+                  viewport={{ once: true, margin: '-5% 0px' }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{
+                    duration: 0.7,
+                    delay: isFullWidth ? 0 : (index % 2) * 0.1,
+                    ease: [0.22, 1, 0.36, 1],
                   }}
-                  className={cn("w-full", gridClasses)}
+                  className={colClass}
                 >
                   <ImageCard
                     title={project.title}
@@ -120,13 +108,14 @@ export default function ProjectsPage() {
                     alt={project.title}
                     location={project.location}
                     href={`/projects/${project.slug}`}
-                    featured={project.featured}
+                    aspectRatio={isFullWidth ? 'landscape' : 'portrait'}
+                    featured={isFullWidth}
                   />
                 </motion.div>
               );
             })}
-          </AnimatePresence>
-        </motion.div>
+          </div>
+        </AnimatePresence>
 
         {filteredProjects.length === 0 && (
           <div className="flex flex-col items-center justify-center py-40 border-t border-border mt-20">

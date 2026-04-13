@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { Heading } from './Heading';
+import { MapPin } from 'lucide-react';
 
 interface ImageCardProps {
   src: string;
@@ -60,15 +60,20 @@ export const ImageCard = ({
       )}
       data-cursor="view"
     >
-      {/* Portfolio Card Content (Top Left) */}
-      <div className="absolute top-8 left-8 z-20">
-        <div className="p-0 transition-all duration-500">
-          <p className="text-[10px] uppercase tracking-[0.4em] text-accent-bronze mb-2 font-bold drop-shadow-sm">
-            {location}
-          </p>
-          <h3 className="text-xl md:text-2xl font-serif text-white leading-tight tracking-wide drop-shadow-md">
+      {/* Bottom Badge Overlay — always visible */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 p-4 bg-linear-to-t from-black/70 via-black/30 to-transparent">
+        <div className="translate-y-1 group-hover:translate-y-0 transition-transform duration-500">
+          {/* Title */}
+          <h3 className="text-white font-serif text-lg md:text-xl leading-tight drop-shadow-lg mb-2">
             {title}
           </h3>
+          {/* Location badge */}
+          {location && (
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest bg-black/50 backdrop-blur-sm text-white/90 rounded-full border border-white/20">
+              <MapPin size={9} className="shrink-0" />
+              {location}
+            </span>
+          )}
         </div>
       </div>
 
