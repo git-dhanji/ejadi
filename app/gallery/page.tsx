@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import { PROJECTS } from "@/constants/projects";
+import { GALLERY_COLLECTION } from "@/constants/gallery_data";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/common/Container";
 
@@ -44,7 +45,20 @@ function buildGalleryItems(): GalleryItem[] {
       });
     });
   });
-  return items;
+
+  // Add the curated gallery collection
+  GALLERY_COLLECTION.forEach((item) => {
+    items.push({
+      src: item.src,
+      title: item.title,
+      slug: '#', // Moodboard items don't have dedicated project pages
+      category: item.category,
+      location: item.location,
+    });
+  });
+
+  // Shuffle items for a more curated/moodboard feel
+  return items.sort(() => Math.random() - 0.5);
 }
 
 export default function GalleryPage() {
@@ -216,7 +230,7 @@ export default function GalleryPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center"
+            className="fixed inset-0 z-100 bg-black/95 backdrop-blur-sm flex items-center justify-center"
             onClick={closeLightbox}
           >
             {/* Close */}

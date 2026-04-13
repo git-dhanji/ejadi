@@ -1,127 +1,151 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { SectionWrapper } from '@/components/common/SectionWrapper';
 import { Heading } from '@/components/common/Heading';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { HOME_CONTENT } from '@/constants/site';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, MapPin } from 'lucide-react';
 
 export const HomeHero = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.5,
-      },
-    },
-  };
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 1, ease: 'easeOut' as any },
-    },
-  };
+  const springConfig = { damping: 25, stiffness: 150 };
+  const springX = useSpring(mouseX, springConfig);
+  const springY = useSpring(mouseY, springConfig);
 
-  const slowZoom = {
-    scale: [1, 1.05],
-    transition: {
-      duration: 30,
-      repeat: Infinity,
-      repeatType: 'reverse' as const,
-      ease: 'easeInOut' as any,
-    },
-  };
+  // Parallax movements for different layers
+  const textX = useTransform(springX, [0, 800], [0, 20]);
+  const textY = useTransform(springY, [0, 800], [0, 20]);
+  const imgX = useTransform(springX, [0, 800], [0, -20]);
+  const imgY = useTransform(springY, [0, 800], [0, -20]);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX - window.innerWidth / 2);
+      mouseY.set(e.clientY - window.innerHeight / 2);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
 
   return (
-    <section className="relative h-[95vh] w-full overflow-hidden bg-primary">
-      {/* Cinematic Background */}
-      <motion.div 
-        animate={slowZoom}
-        className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1974&auto=format&fit=crop')] bg-cover bg-center bg-no-wrap opacity-80" 
-      />
-      
-      <div className="absolute inset-0 opacity-20">
-        {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[length:40px_40px]" />
+    <section className="relative h-[85vh] w-full overflow-hidden bg-background pt-64 pb-32 flex items-start lg:items-center">
+      {/* 1. Large Background Typography (Watermark) */}
+      <div className="absolute inset-0 z-0 flex items-center justify-center opacity-[0.03] select-none pointer-events-none overflow-hidden text-center">
+        <motion.h1 
+          style={{ x: textX, y: textY }}
+          className="text-[40vw] font-serif italic whitespace-nowrap leading-none"
+        >
+          EJADI
+        </motion.h1>
       </div>
 
-      {/* Dramatic Overlay */}
-      <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-black/80 pointer-events-none" />
-      
-      <div className="relative z-20 flex h-full items-center justify-center text-center text-white">
-        <SectionWrapper withContainer className="py-0">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="space-y-8"
-          >
-            <motion.p 
-              variants={itemVariants}
-              className="text-[10px] md:text-sm font-light uppercase tracking-[0.5em] opacity-80"
+      <SectionWrapper withContainer className="relative z-10 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-center">
+          
+          {/* 2. Text Content (Left) */}
+          <div className="lg:col-span-7 flex flex-col justify-center order-2 lg:order-1 relative z-20">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="space-y-6 lg:space-y-8"
             >
-              {HOME_CONTENT.hero.subtitle}
-            </motion.p>
-            
-            <motion.div variants={itemVariants}>
-              <Heading as="h1" size="3xl" className="max-w-5xl mx-auto leading-[0.9] font-light!">
-                Creating Timeless <br /> 
-                <span className="italic font-serif opacity-90">Narratives</span> of Space
+              <div className="flex items-center gap-4">
+                <span className="h-px w-10 bg-accent" />
+                <p className="text-[9px] md:text-[10px] uppercase tracking-[0.5em] text-accent font-bold">
+                  {HOME_CONTENT.hero.subtitle}
+                </p>
+              </div>
+
+              <Heading as="h1" size="2xl" className="leading-[0.85] tracking-tighter! font-light! text-foreground lg:text-7xl">
+                Sculpting <br />
+                <span className="italic font-serif opacity-90 text-transparent" style={{ WebkitTextStroke: '1px var(--foreground)' }}>Emotional</span> <br />
+                Architecture
               </Heading>
-            </motion.div>
 
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
-              <Link 
-                href="/projects" 
-                className={cn(
-                  buttonVariants({ variant: 'default' }),
-                  "w-full sm:w-auto group relative rounded-full bg-primary-foreground px-8 py-8 text-sm font-serif font-bold tracking-widest text-primary shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-accent hover:text-primary-foreground overflow-hidden"
-                )}
-              >
-                <span className="relative z-10 font-serif overflow-hidden h-6 inline-flex flex-col pointer-events-none">
-                  <span className="inline-flex items-center gap-2 transition-transform duration-500 ease-out group-hover:-translate-y-full">{HOME_CONTENT.hero.exploreBtn} <ArrowRight className="w-3 h-3" /></span>
-                  <span className="inline-flex items-center gap-2 transition-transform duration-500 ease-out group-hover:-translate-y-full">{HOME_CONTENT.hero.exploreBtn} <ArrowRight className="w-3 h-3" /></span>
-                </span>
-              </Link>
+              <p className="max-w-md text-foreground/70 font-light text-lg leading-relaxed">
+                We design spaces that don't just look beautiful, but feel deeply resonant with the human experience.
+              </p>
+
+              <div className="flex flex-wrap gap-6 pt-4">
+                <Link 
+                  href="/projects" 
+                  className={cn(
+                    buttonVariants({ variant: 'default' }),
+                    "group relative h-16 px-10 rounded-none bg-foreground text-background overflow-hidden border-none"
+                  )}
+                >
+                  <span className="relative z-10 flex items-center gap-3 text-xs uppercase tracking-widest font-bold">
+                    {HOME_CONTENT.hero.exploreBtn} 
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                  <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                </Link>
+                
+                <Link 
+                  href="/contact" 
+                  className={cn(
+                    buttonVariants({ variant: 'outline' }),
+                    "group h-16 px-10 rounded-none border-border hover:bg-transparent hover:border-accent transition-colors"
+                  )}
+                >
+                  <span className="text-xs uppercase tracking-widest font-bold group-hover:text-accent transition-colors">
+                    {HOME_CONTENT.hero.contactBtn}
+                  </span>
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* 3. Hero Visual (Right) */}
+          <div className="lg:col-span-5 relative order-1 lg:order-2">
+            <motion.div
+              initial={{ opacity: 0, scale: 1.1 }}
+              animate={{ opacity: 1, scale: 1 }}
+              style={{ x: imgX, y: imgY }}
+              transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+              className="relative aspect-4/5 lg:aspect-3.5/5 w-full max-w-[340px] ml-auto"
+            >
+              {/* Architectural Frame Decoration */}
+              <div className="absolute -top-6 -right-6 w-full h-full border border-accent opacity-20 hidden lg:block" />
               
-              <Link 
-                href="/contact" 
-                className={cn(
-                  buttonVariants({ variant: 'outline' }),
-                  "w-full sm:w-auto group relative rounded-full border border-primary-foreground/20 bg-transparent px-12 py-8 text-sm font-serif font-bold tracking-widest text-primary-foreground backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-primary-foreground hover:text-primary cursor-pointer overflow-hidden"
-                )}
-              >
-                <span className="relative z-10 font-serif overflow-hidden h-6 inline-flex flex-col pointer-events-none">
-                  <span className="inline-block transition-transform duration-500 ease-out group-hover:-translate-y-full">{HOME_CONTENT.hero.contactBtn}</span>
-                  <span className="inline-block transition-transform duration-500 ease-out group-hover:-translate-y-full">{HOME_CONTENT.hero.contactBtn}</span>
-                </span>
-              </Link>
-            </motion.div>
-          </motion.div>
-        </SectionWrapper>
-      </div>
+              <div className="relative w-full h-full overflow-hidden shadow-2xl">
+                <img 
+                  src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1974&auto=format&fit=crop" 
+                  alt="Ezadi Interior Design" 
+                  className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-1000"
+                />
+              </div>
 
-      {/* Scroll Indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-      >
-        <div className="flex flex-col items-center space-y-4">
-          <span className="text-[10px] uppercase tracking-[0.3em] opacity-40">Scroll</span>
-          <div className="h-16 w-px bg-linear-to-b from-white/40 to-transparent" />
+              {/* Floating Metadata Badge */}
+              <div className="absolute -bottom-10 -left-10 bg-background border border-border p-6 shadow-xl hidden lg:flex flex-col gap-2 min-w-[180px]">
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-3 h-3 text-accent" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest">Indore, India</span>
+                </div>
+                <div className="h-px w-full bg-border" />
+                <div className="flex justify-between items-center">
+                  <span className="text-[9px] text-muted-foreground uppercase tracking-widest">Est. 2014</span>
+                  <span className="text-[9px] text-accent font-bold uppercase tracking-widest">Arch Studio</span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
         </div>
-      </motion.div>
+      </SectionWrapper>
+
+      {/* 4. Side Indicators */}
+      <div className="absolute left-10 bottom-20 hidden lg:flex flex-col gap-10 items-center opacity-30 h-32">
+         <span className="rotate-90 text-[10px] uppercase tracking-[0.5em] origin-left">Discovery</span>
+         <div className="w-px flex-1 bg-linear-to-b from-foreground to-transparent" />
+      </div>
 
     </section>
   );
