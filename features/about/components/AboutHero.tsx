@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { CldImage } from 'next-cloudinary';
 import { Container } from '@/components/common/Container';
 import { Heading } from '@/components/common/Heading';
 import { ABOUT_DATA } from '@/constants/about';
@@ -66,10 +66,11 @@ export const AboutHero = () => {
              className="w-full lg:w-[45%] relative mt-10 lg:mt-0"
           >
             <div className="relative aspect-3/4 lg:aspect-4/5 w-full max-w-[380px] ml-auto overflow-hidden bg-muted group rounded-sm shadow-xl">
-              <Image
+              <CldImage
                 src={hero.portrait}
                 alt={hero.name}
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover transition-transform duration-2000 group-hover:scale-110"
                 priority
               />

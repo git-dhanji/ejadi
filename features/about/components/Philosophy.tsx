@@ -11,7 +11,7 @@ export const Philosophy = () => {
   const { philosophy, stats } = ABOUT_DATA;
 
   return (
-    <SectionWrapper className="bg-muted py-32 md:py-48 overflow-hidden relative">
+    <SectionWrapper className="bg-background border-t border-border py-32 md:py-48 overflow-hidden relative">
 
       <Container>
         <div className="flex flex-col lg:flex-row justify-between items-start mb-32 md:mb-48">
@@ -37,7 +37,7 @@ export const Philosophy = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ delay: 0.2, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                 className={`w-full md:w-[65%] lg:w-[45%] bg-background p-10 md:p-16 border border-border rounded-sm shadow-2xl relative z-10 ${alignClass} ${marginTop} group hover:-translate-y-4 transition-transform duration-700`}
+                 className={`w-full md:w-[65%] lg:w-[45%] bg-muted p-10 md:p-16 border border-border rounded-sm shadow-lg relative z-10 ${alignClass} ${marginTop} group hover:-translate-y-4 transition-transform duration-700`}
               >
                 <div className="flex items-center justify-between mb-16">
                   <span className="text-sm font-bold text-accent uppercase tracking-widest">0{index + 1}</span>

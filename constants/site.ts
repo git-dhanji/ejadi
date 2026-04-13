@@ -66,7 +66,7 @@ export const HOME_CONTENT = {
         desc: 'Structural design and master planning for modern living.',
         longDesc: 'From initial sketches to structural blueprints, we design buildings that stand the test of time and integrate seamlessly with their environment.',
         features: ['Structural Design', 'Site Analysis', 'Sustainable Planning', '3D Visualization'],
-        image: 'https://images.unsplash.com/photo-1511871893393-82e9c18b70e3?q=80&w=2000&auto=format&fit=crop'
+        image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop'
       },
       { 
         title: 'Space Planning', 

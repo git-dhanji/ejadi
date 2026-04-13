@@ -14,7 +14,7 @@ export default function Home() {
       <HomeFeaturedProjects />
       
       {/* About Preview Section */}
-      <SectionWrapper className="bg-muted">
+      <SectionWrapper className="bg-background border-t border-border">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8 order-2 lg:order-1">
             <p className="text-xs font-light uppercase tracking-widest text-accent">{HOME_CONTENT.aboutPreview.label}</p>
@@ -61,7 +61,7 @@ export default function Home() {
       </SectionWrapper>
 
       {/* Final Call to Action */}
-      <SectionWrapper className="bg-primary text-primary-foreground py-32 overflow-hidden relative">
+      <SectionWrapper className="bg-[#111111] text-white py-32 overflow-hidden relative">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff12_1px,transparent_1px),linear-gradient(to_bottom,#ffffff12_1px,transparent_1px)] bg-size-[60px_60px]" />
         </div>
@@ -73,7 +73,7 @@ export default function Home() {
               href="/projects" 
               className={cn(
                 buttonVariants({ variant: 'default' }),
-                "w-full sm:w-auto group rounded-none bg-primary-foreground text-primary px-12 py-8 text-xs uppercase tracking-widest hover:bg-accent hover:text-primary-foreground transition-all duration-300 overflow-hidden"
+                "w-full sm:w-auto group rounded-none bg-white text-black px-12 py-8 text-xs uppercase tracking-widest hover:bg-accent hover:text-white transition-all duration-300 overflow-hidden"
               )}
             >
               <span className="relative z-10 overflow-hidden h-5 inline-flex flex-col pointer-events-none">
@@ -85,7 +85,7 @@ export default function Home() {
               href="/contact" 
               className={cn(
                 buttonVariants({ variant: 'outline' }),
-                "w-full sm:w-auto group rounded-none border border-primary-foreground/20 bg-transparent px-12 py-8 text-xs uppercase tracking-widest text-primary-foreground hover:bg-primary-foreground hover:text-primary transition-all duration-300 overflow-hidden"
+                "w-full sm:w-auto group rounded-none border border-white/20 bg-transparent px-12 py-8 text-xs uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all duration-300 overflow-hidden"
               )}
             >
               <span className="relative z-10 overflow-hidden h-5 inline-flex flex-col pointer-events-none">

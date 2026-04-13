@@ -8,8 +8,8 @@ import { ContactForm } from '@/features/contact/components/ContactForm';
 
 export default function ContactPage() {
   return (
-    <div className="pt-24">
-      <SectionWrapper className="bg-muted">
+    <div className="pt-24 min-h-screen bg-background">
+      <SectionWrapper>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
           <div className="space-y-12">
             <div className="space-y-4">

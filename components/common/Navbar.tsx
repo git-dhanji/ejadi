@@ -7,6 +7,7 @@ import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-
 import { cn } from '@/lib/utils';
 import { Container } from './Container';
 import { Logo } from './Logo';
+import { ThemeToggle } from './ThemeToggle';
 
 import { SITE, NAV_LINKS } from '@/constants/site';
 
@@ -54,7 +55,7 @@ export const Navbar = () => {
         <div className="hidden md:flex items-center space-x-6">
           {/* Grouped Link Box */}
           <div className="flex items-center bg-background/90 backdrop-blur-lg border border-border px-2 py-2 rounded-full shadow-sm">
-            {NAV_LINKS.filter(link => link.href !== '/contact').map((link) => (
+            {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -70,15 +71,10 @@ export const Navbar = () => {
             ))}
           </div>
 
-          {/* Contact Highlight (Separate) */}
-          <Link
-            href="/contact"
-            className={cn(
-              'relative text-sm font-serif font-semibold px-8 py-4 rounded-full transition-all bg-primary text-primary-foreground hover:scale-105 active:scale-95 shadow-xl'
-            )}
-          >
-            CONTACT
-          </Link>
+          {/* Theme Toggle */}
+          <div className="flex items-center space-x-4">
+            <ThemeToggle />
+          </div>
         </div>
 
 

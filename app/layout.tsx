@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Syne } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/common/Navbar';
 import { Footer } from '@/components/common/Footer';
+import { ThemeProvider } from '@/components/common/ThemeProvider';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: '--font-plus-jakarta',
@@ -49,14 +50,21 @@ export default function RootLayout({
 
 
 
-      <body className="flex min-h-screen flex-col bg-background text-foreground">
-        <SmoothScroll>
-          <CustomCursor />
-          <Navbar />
-          <main className="grow">{children}</main>
-          <Footer />
-          <FloatingAction />
-        </SmoothScroll>
+      <body className="flex min-h-screen flex-col bg-background text-foreground transition-colors duration-500">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange={false}
+        >
+          <SmoothScroll>
+            <CustomCursor />
+            <Navbar />
+            <main className="grow">{children}</main>
+            <Footer />
+            <FloatingAction />
+          </SmoothScroll>
+        </ThemeProvider>
       </body>
     </html>
   );

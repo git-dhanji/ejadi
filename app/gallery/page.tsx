@@ -26,7 +26,7 @@ export default function GalleryPage() {
     : PROJECTS.filter(p => p.category === activeCategory);
 
   return (
-    <div className="pt-32 min-h-screen bg-muted">
+    <div className="pt-32 min-h-screen bg-background">
       <SectionWrapper withContainer>
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-20">

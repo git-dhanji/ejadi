@@ -4,7 +4,8 @@ export const ABOUT_DATA = {
     subtitle: "Founder & Lead Architect",
     name: "Salman Ansari",
     description: "Specializing in brutalist-minimalist fusion, Salman Ansari leads a studio dedicated to the precision of form and the soul of raw materiality.",
-    portrait: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop",
+    // Dynamically loaded from Cloudinary via next-cloudinary
+    portrait: "Gemini_Generated_Image_txbrintxbrintxbr_kchwoe",
   },
 
   narrative: {

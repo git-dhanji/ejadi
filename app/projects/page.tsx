@@ -69,39 +69,62 @@ export default function ProjectsPage() {
         </div>
       </Container>
 
-      {/* Projects Grid */}
+      {/* Projects Editorial Grid */}
       <Container>
         <motion.div 
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16"
         >
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                layout
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: (index % 6) * 0.1,
-                  ease: [0.22, 1, 0.36, 1]
-                }}
-                className={cn(
-                  project.featured && "lg:col-span-2 lg:row-span-1"
-                )}
-              >
-                <ImageCard
-                  title={project.title}
-                  src={project.coverImage}
-                  alt={project.title}
-                  location={project.location}
-                  href={`/projects/${project.slug}`}
-                  featured={project.featured}
-                />
-              </motion.div>
-            ))}
+            {filteredProjects.map((project, index) => {
+              // Create an asymmetric editorial spread pattern
+              const layoutCycle = index % 5;
+              let gridClasses = '';
+              switch (layoutCycle) {
+                case 0:
+                  gridClasses = 'md:col-span-8 md:col-start-1'; // Large left
+                  break;
+                case 1:
+                  gridClasses = 'md:col-span-4 md:col-start-9 md:mt-32'; // Small right, pushed down
+                  break;
+                case 2:
+                  gridClasses = 'md:col-span-5 md:col-start-2'; // Medium left indented
+                  break;
+                case 3:
+                  gridClasses = 'md:col-span-6 md:col-start-7 md:mt-16'; // Medium right staggered
+                  break;
+                case 4:
+                  gridClasses = 'md:col-span-10 md:col-start-2 md:mt-24'; // Massive center standout
+                  break;
+                default:
+                  gridClasses = 'md:col-span-12';
+              }
+
+              return (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-10% 0px" }}
+                  transition={{ 
+                    duration: 0.8, 
+                    delay: 0.1,
+                    ease: [0.22, 1, 0.36, 1]
+                  }}
+                  className={cn("w-full", gridClasses)}
+                >
+                  <ImageCard
+                    title={project.title}
+                    src={project.coverImage}
+                    alt={project.title}
+                    location={project.location}
+                    href={`/projects/${project.slug}`}
+                    featured={project.featured}
+                  />
+                </motion.div>
+              );
+            })}
           </AnimatePresence>
         </motion.div>
 
