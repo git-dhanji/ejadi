@@ -20,13 +20,13 @@ const syne = Syne({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Ezadi Interior | Luxury Interior Design & Architecture',
-    template: '%s | Ezadi Interior',
+    default: 'Ejadi Interior | Best Architect in Indore | Luxury Architectural Studio',
+    template: '%s | Ejadi Interior',
   },
-  description: 'Curating timeless narratives of luxury and comfort in residential and commercial spaces.',
-  keywords: ['Interior Design', 'Architecture', 'Luxury Portfolio', 'Modern Design'],
-  authors: [{ name: 'Ezadi Interior' }],
-  creator: 'Ezadi Interior',
+  description: 'Ejadi Interior is the best architect in Indore, specializing in luxury residential and commercial architecture. We balance tectonic precision with spatial choreography to create permanent narratives of space.',
+  keywords: ['Best Architect in Indore', 'Top Architectural Firm Indore', 'Luxury Interior Design Indore', 'Structural Engineering Madhya Pradesh', 'Ejadi Interior'],
+  authors: [{ name: 'Ejadi Interior' }],
+  creator: 'Ejadi Interior',
   metadataBase: new URL('https://ezadi.com'), // Replace with actual URL
 };
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+import { SafeImage } from './SafeImage';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -88,7 +88,7 @@ export const ImageCard = ({
         'relative w-full overflow-hidden bg-muted transition-all duration-700 ease-[0.2,1,0.3,1]',
         'shadow-sm group-hover:shadow-xl rounded-2xl grow'
       )}>
-        <Image
+        <SafeImage
           src={src}
           alt={alt}
           fill

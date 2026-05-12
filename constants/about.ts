@@ -1,34 +1,34 @@
 export const ABOUT_DATA = {
   hero: {
-    title: "Defining Modernity Through Architectural Sincerity.",
+    title: "Defining Modernity Through Tectonic Integrity.",
     subtitle: "Founder & Lead Architect",
     name: "Salman Ansari",
-    description: "Specializing in brutalist-minimalist fusion, Salman Ansari leads a studio dedicated to the precision of form and the soul of raw materiality.",
+    description: "Specializing in the fusion of vernacular modernism and structural honesty, Salman Ansari leads Ejadi Interior, widely recognized as the best architect in Indore.",
     // Dynamically loaded from Cloudinary via next-cloudinary
     portrait: "Gemini_Generated_Image_txbrintxbrintxbr_kchwoe",
   },
 
   narrative: {
     bio: [
-      "With over 15 years in the field, Salman Ansari has established a signature style that balances the weight of modern structure with the lightness of open-plan living.",
-      "His approach is fundamentally architectural—treating interiors not as decoration, but as an extension of the building's skeleton. This dual perspective allows for spaces that are structurally bold yet intimately livable.",
-      "Based in London but global in reach, the studio under Salman's direction continues to push the boundaries of what 'minimalism' can achieve in the 21st century."
+      "With over a decade of practice in Central India, Salman Ansari has established a signature paradigm that balances the gravity of monolithic form with the spatial choreography of luxury living.",
+      "His approach is fundamentally ontological—treating architecture not as a service, but as a permanent narrative. This philosophy allows for the creation of environments in Indore that are structurally bold yet performatively light.",
+      "Based in Vijay Nagar, the studio under Salman's direction continues to push the boundaries of luxury residential design, synthesizing global standards with local heritage to define the future of architecture in Madhya Pradesh."
     ],
-    quote: "Architecture is the reaching out for liberty."
+    quote: "Architecture is the reaching out for liberty through structural honesty."
   },
 
   philosophy: [
     {
-      title: "Material Sincerity",
-      description: "We use materials in their most honest form, allowing time and natural wear to add character to the architecture."
+      title: "Material Honesty",
+      description: "We engage with materials in their most elemental state, allowing the tectonic integrity of the structure to speak without the need for superficial ornament."
     },
     {
-      title: "Human Scale",
-      description: "No matter how grand the structure, our focus remains on the intimate touch-points where humans interact with the space."
+      title: "Phenomenological Scale",
+      description: "Our focus resides in the intimate touch-points where the human occupant intersects with monolithic form, ensuring a deep emotional resonance."
     },
     {
-      title: "Atmospheric Precision",
-      description: "We orchestrate light as a primary building material, shaping the emotional resonance of every room."
+      title: "Atmospheric Resonance",
+      description: "We orchestrate luminosity as a primary tectonic element, sculpting the spatial choreography and ontological depth of every interior."
     }
   ],
   stats: [

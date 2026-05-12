@@ -69,7 +69,7 @@ export const Footer = () => {
 
           {/* Massive Navigational Links (Using Font-Serif as requested) */}
           <div className="lg:w-2/3 flex flex-col items-start lg:items-end space-y-4">
-             {['Projects', 'About', 'Services', 'Contact'].map((link) => (
+             {['Projects', 'About', 'Services', 'Journal', 'Contact'].map((link) => (
                 <Link 
                   key={link} 
                   href={`/${link.toLowerCase()}`}

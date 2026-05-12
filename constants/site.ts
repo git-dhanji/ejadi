@@ -6,8 +6,8 @@
 export const SITE = {
   name: 'Ejadi Interior',
   author: 'Salman Ansari',
-  tagline: 'Creating Timeless Narratives of Space',
-  description: 'Curating luxury architectural experiences that balance technical precision with the poetry of raw materials.',
+  tagline: 'Spatial Choreography & Tectonic Precision',
+  description: 'Ejadi Interior is widely recognized as the best architect in Indore, curating luxury architectural experiences that balance monolithic form with the atmospheric resonance of raw materials.',
   url: 'https://ezadi.com',
 };
 
@@ -33,22 +33,23 @@ export const NAV_LINKS = [
   { href: '/projects', label: 'Projects' },
   { href: '/about', label: 'About' },
   { href: '/services', label: 'Services' },
+  { href: '/blog', label: 'Journal' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/contact', label: 'Contact' },
 ];
 
 export const HOME_CONTENT = {
   hero: {
-    subtitle: 'Architecture & Interior Design',
-    title: 'Creating Timeless Narratives of Space',
-    exploreBtn: 'Explore Projects',
-    contactBtn: 'Get in Touch',
+    subtitle: 'Bespoke Architectural Engineering',
+    title: 'Sculpting Permanent Narratives of Space',
+    exploreBtn: 'Explore Monoliths',
+    contactBtn: 'Initiate Narrative',
   },
   aboutPreview: {
-    label: 'Our Story',
-    heading: 'We create spaces that inspire life.',
-    text: 'Founded on the belief that environment shapes emotion, Ezadi Interior brings together a multidisciplinary team of designers and architects to craft bespoke residences and commercial landmarks.',
-    btnText: 'Learn More About Us',
+    label: 'Defining Modernity',
+    heading: 'The best architect in Indore for visionary living.',
+    text: 'Ezadi Interior represents the pinnacle of vernacular modernism. We synthesize structural integrity with ontological depth to craft environments that transcend mere utility, establishing benchmarks for luxury in Madhya Pradesh.',
+    btnText: 'Experience Our Philosophy',
   },
   servicesSummary: {
     label: 'Services',

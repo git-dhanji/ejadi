@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { HOME_CONTENT } from '@/constants/site';
 import { ArrowRight, MapPin } from 'lucide-react';
+import Image from 'next/image';
 
 export const HomeHero = () => {
   const mouseX = useMotionValue(0);
@@ -116,10 +117,13 @@ export const HomeHero = () => {
               <div className="absolute -top-6 -right-6 w-full h-full border border-accent opacity-20 hidden lg:block" />
               
               <div className="relative w-full h-full overflow-hidden shadow-2xl">
-                <img 
+                <Image 
                   src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1974&auto=format&fit=crop" 
                   alt="Ezadi Interior Design" 
-                  className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-1000"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 30vw"
+                  className="object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-1000"
+                  priority
                 />
               </div>
 

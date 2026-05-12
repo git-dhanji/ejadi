@@ -1,5 +1,7 @@
 import { HomeHero } from '@/features/home/components/Hero';
 import { HomeFeaturedProjects } from '@/features/home/components/FeaturedProjects';
+import Image from 'next/image';
+import { SafeImage } from '@/components/common/SafeImage';
 import { SectionWrapper } from '@/components/common/SectionWrapper';
 import { Heading } from '@/components/common/Heading';
 import { SITE, HOME_CONTENT } from '@/constants/site';
@@ -32,11 +34,13 @@ export default function Home() {
               {HOME_CONTENT.aboutPreview.btnText}
             </Link>
           </div>
-          <div className="relative aspect-4/5 overflow-hidden order-1 lg:order-2">
-            <img 
+          <div className="relative aspect-video overflow-hidden order-1 lg:order-2">
+            <SafeImage 
               src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?q=80&w=1974&auto=format&fit=crop" 
               alt="Design Philosophy" 
-              className="object-cover w-full h-full"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
             />
           </div>
         </div>

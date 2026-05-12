@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import { SafeImage } from "@/components/common/SafeImage";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import { PROJECTS } from "@/constants/projects";
@@ -174,7 +175,7 @@ export default function GalleryPage() {
                   className="relative break-inside-avoid mb-4 overflow-hidden group cursor-pointer"
                   onClick={() => openLightbox(index)}
                 >
-                  <Image
+                  <SafeImage
                     src={item.src}
                     alt={item.title}
                     width={800}
@@ -270,7 +271,7 @@ export default function GalleryPage() {
                 className="relative max-w-5xl w-full mx-16 md:mx-24"
                 onClick={(e) => e.stopPropagation()}
               >
-                <Image
+                <SafeImage
                   src={currentItem.src}
                   alt={currentItem.title}
                   width={1400}
