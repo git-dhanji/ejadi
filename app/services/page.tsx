@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -9,6 +9,13 @@ import { Container } from '@/components/common/Container';
 import { HOME_CONTENT, SITE } from '@/constants/site';
 
 export default function ServicesPage() {
+  // Force scroll to top when page mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
+
   return (
     <main className="min-h-screen bg-background text-foreground">
 

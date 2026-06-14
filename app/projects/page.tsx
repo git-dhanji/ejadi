@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Container } from '@/components/common/Container';
 import { Heading } from '@/components/common/Heading';
@@ -20,6 +20,13 @@ const categories: (ProjectCategory | 'All')[] = [
 export default function ProjectsPage() {
   const [activeCategory, setActiveCategory] = useState<ProjectCategory | 'All'>('All');
 
+  // Force scroll to top when page mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
+
   const filteredProjects = useMemo(() => {
     if (activeCategory === 'All') return PROJECTS;
     return PROJECTS.filter((project) => project.category === activeCategory);
@@ -38,7 +45,7 @@ export default function ProjectsPage() {
               Selected <span className="italic font-serif opacity-90">Works</span>
             </Heading>
           </div>
-          
+
           <div className="flex flex-col items-start md:items-end space-y-4">
             <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
               Total projects: {PROJECTS.length}
@@ -120,7 +127,7 @@ export default function ProjectsPage() {
         {filteredProjects.length === 0 && (
           <div className="flex flex-col items-center justify-center py-40 border-t border-border mt-20">
             <p className="font-serif text-2xl text-muted-foreground opacity-30">No projects found in this category.</p>
-            <button 
+            <button
               onClick={() => setActiveCategory('All')}
               className="mt-6 text-xs font-bold uppercase tracking-widest text-accent hover:underline"
             >

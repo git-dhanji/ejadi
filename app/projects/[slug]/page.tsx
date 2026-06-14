@@ -3,7 +3,6 @@
 import React, {
   useState,
   useEffect,
-  useLayoutEffect,
   useCallback,
 } from "react";
 import { useParams, notFound } from "next/navigation";
@@ -28,11 +27,6 @@ export default function ProjectDetailPage() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const images = project?.images ?? [];
-
-  // Scroll to top on every mount (before paint) — fixes random scroll position
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const prev = useCallback(() => {
     setLightboxIndex((i) =>

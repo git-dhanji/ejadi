@@ -13,20 +13,17 @@ export const SITE = {
 
 export const CONTACT = {
   email: 'hello@ezadi.com',
-  phone: '+44 (0) 20 7946 0123',
+  phone: '+919039176572',
   address: {
-    line1: '123 Luxury Avenue, Suite 400',
-    line2: 'Design District, London',
-    full: '123 Luxury Avenue, Suite 400, Design District, London',
+    line1: 'Vijay Nagar',
+    line2: 'Indore, Madhya Pradesh',
+    full: 'Vijay Nagar, Indore, Madhya Pradesh',
   },
-  workingHours: 'Mon - Fri: 9:00 AM - 6:00 PM',
+  workingHours: 'Mon - Sat: 10:00 AM - 7:00 PM',
 };
 
 export const SOCIALS = {
-  instagram: 'https://instagram.com/ezadi_interior',
-  pinterest: 'https://pinterest.com/ezadi_interior',
-  linkedin: 'https://linkedin.com/company/ezadi-interior',
-  behance: 'https://behance.net/ezadi_interior',
+  instagram: 'https://instagram.com/ejadiinterior',
 };
 
 export const NAV_LINKS = [
@@ -55,22 +52,22 @@ export const HOME_CONTENT = {
     label: 'Services',
     heading: 'Tailored Solutions',
     items: [
-      { 
-        title: 'Interior Design', 
+      {
+        title: 'Interior Design',
         desc: 'Complete residential and commercial interior solutions.',
         longDesc: 'Bespoke residential and commercial interior solutions tailored to your unique lifestyle. We focus on harmony between aesthetic beauty and daily functionality.',
         features: ['Custom Furniture Design', 'Color Consulting', 'Material Selection', 'Lighting Design'],
         image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop'
       },
-      { 
-        title: 'Architectural Planning', 
+      {
+        title: 'Architectural Planning',
         desc: 'Structural design and master planning for modern living.',
         longDesc: 'From initial sketches to structural blueprints, we design buildings that stand the test of time and integrate seamlessly with their environment.',
         features: ['Structural Design', 'Site Analysis', 'Sustainable Planning', '3D Visualization'],
         image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop'
       },
-      { 
-        title: 'Space Planning', 
+      {
+        title: 'Space Planning',
         desc: 'Optimizing flow and functionality for ergonomic excellence.',
         longDesc: 'Maximizing the utility of every square inch. We analyze flow and ergonomics to ensure your environment works as hard as you do.',
         features: ['Workflow Analysis', 'Ergonomic Review', 'Acoustic Treatment', 'Custom Cabinetry'],

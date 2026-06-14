@@ -2,7 +2,7 @@ export const ABOUT_DATA = {
   hero: {
     title: "Defining Modernity Through Tectonic Integrity.",
     subtitle: "Founder & Lead Architect",
-    name: "Salman Ansari",
+    name: "Mohmmad Salman",
     description: "Specializing in the fusion of vernacular modernism and structural honesty, Salman Ansari leads Ejadi Interior, widely recognized as the best architect in Indore.",
     // Dynamically loaded from Cloudinary via next-cloudinary
     portrait: "Gemini_Generated_Image_txbrintxbrintxbr_kchwoe",

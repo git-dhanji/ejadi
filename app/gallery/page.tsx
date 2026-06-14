@@ -28,34 +28,49 @@ interface GalleryItem {
 
 function buildGalleryItems(): GalleryItem[] {
   const items: GalleryItem[] = [];
+  const seenUrls = new Set<string>(); // Track seen image URLs to avoid duplicates
+
+  // Add images from projects
   PROJECTS.forEach((project) => {
-    items.push({
-      src: project.coverImage,
-      title: project.title,
-      slug: project.slug,
-      category: project.category,
-      location: project.location,
-    });
-    project.images?.forEach((img) => {
+    // Add cover image if not seen
+    if (!seenUrls.has(project.coverImage)) {
       items.push({
-        src: img,
+        src: project.coverImage,
         title: project.title,
         slug: project.slug,
         category: project.category,
         location: project.location,
       });
+      seenUrls.add(project.coverImage);
+    }
+
+    // Add project images if not seen
+    project.images?.forEach((img) => {
+      if (!seenUrls.has(img)) {
+        items.push({
+          src: img,
+          title: project.title,
+          slug: project.slug,
+          category: project.category,
+          location: project.location,
+        });
+        seenUrls.add(img);
+      }
     });
   });
 
-  // Add the curated gallery collection
+  // Add the curated gallery collection (only if not already seen)
   GALLERY_COLLECTION.forEach((item) => {
-    items.push({
-      src: item.src,
-      title: item.title,
-      slug: '#', // Moodboard items don't have dedicated project pages
-      category: item.category,
-      location: item.location,
-    });
+    if (!seenUrls.has(item.src)) {
+      items.push({
+        src: item.src,
+        title: item.title,
+        slug: '#', // Moodboard items don't have dedicated project pages
+        category: item.category,
+        location: item.location,
+      });
+      seenUrls.add(item.src);
+    }
   });
 
   // Shuffle items for a more curated/moodboard feel
@@ -66,6 +81,13 @@ export default function GalleryPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const allItems = buildGalleryItems();
+
+  // Force scroll to top when page mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
 
   const filtered =
     activeCategory === "All"

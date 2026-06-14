@@ -4,7 +4,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { CldImage } from "next-cloudinary";
 import { Container } from "@/components/common/Container";
-import { Heading } from "@/components/common/Heading";
 import { ABOUT_DATA } from "@/constants/about";
 
 /**

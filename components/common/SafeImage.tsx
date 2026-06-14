@@ -7,7 +7,7 @@ interface SafeImageProps extends ImageProps {
   fallbackSrc?: string;
 }
 
-const DEFAULT_FALLBACK = 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?q=80&w=2070&auto=format&fit=crop';
+const DEFAULT_FALLBACK = 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop';
 
 /**
  * SafeImage component that provides a fallback image if the primary source fails to load.
