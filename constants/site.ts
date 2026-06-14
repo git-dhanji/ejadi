@@ -12,12 +12,12 @@ export const SITE = {
 };
 
 export const CONTACT = {
-  email: 'hello@ezadi.com',
+  email: 'ejadiinterior786@gmail.com',
   phone: '+919039176572',
   address: {
-    line1: 'Vijay Nagar',
+    line1: 'Anand Bazar',
     line2: 'Indore, Madhya Pradesh',
-    full: 'Vijay Nagar, Indore, Madhya Pradesh',
+    full: 'Anand Bazar, Indore, Madhya Pradesh',
   },
   workingHours: 'Mon - Sat: 10:00 AM - 7:00 PM',
 };
