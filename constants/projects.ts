@@ -6,10 +6,10 @@ export const PROJECTS: Project[] = [
     slug: 'lumina-residence',
     title: 'Lumina Residence',
     subtitle: 'Indore, IN',
-    description: 'Ejadi Interior, the best architect in Indore, presents Lumina Residence—a rigorous study in tectonic precision. Utilizing the raw materiality of exposed concrete and expansive glass, we orchestrated a seamless spatial choreography between the internal sanctuary and the urban garden in Vijay Nagar.',
+    description: 'Ejadi Interior, the best architect in Indore, presents Lumina Residence—a rigorous study in tectonic precision. Utilizing the raw materiality of exposed concrete and expansive glass, we orchestrated a seamless spatial choreography between the internal sanctuary and the urban garden in Anand Bazar.',
     category: 'Residential',
     client: 'Private Owner',
-    location: 'Vijay Nagar, Indore',
+    location: 'Anand Bazar, Indore',
     year: '2023',
     coverImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop',
     images: [
@@ -190,3 +190,4 @@ export const PROJECTS: Project[] = [
     aspectRatio: 'landscape',
   },
 ];
+

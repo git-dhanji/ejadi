@@ -40,7 +40,7 @@ const BASE_IMAGES = [
 ];
 
 const LOCATIONS = [
-  'Vijay Nagar, Indore',
+  'Anand Bazar, Indore',
   'Palasia, Indore',
   'AB Road, Indore',
   'South Tukoganj, Indore',
@@ -77,3 +77,4 @@ export const GALLERY_COLLECTION: GalleryImageData[] = BASE_IMAGES.map((baseImg, 
     location: LOCATIONS[i % LOCATIONS.length],
   };
 });
+

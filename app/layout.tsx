@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   keywords: ['Best Architect in Indore', 'Top Architectural Firm Indore', 'Luxury Interior Design Indore', 'Structural Engineering Madhya Pradesh', 'Ejadi Interior'],
   authors: [{ name: 'Ejadi Interior' }],
   creator: 'Ejadi Interior',
-  metadataBase: new URL('https://ezadi.com'), // Replace with actual URL
+  metadataBase: new URL('https://ejadiinterior.com'), // Replace with actual URL
 };
 
 import { SmoothScroll } from '@/components/common/SmoothScroll';

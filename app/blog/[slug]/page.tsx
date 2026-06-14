@@ -49,8 +49,8 @@ export default async function BlogPostPage({ params }: Props) {
     <article className="pt-24 min-h-screen bg-background">
       {/* 1. Progress / Back Link */}
       <Container className="py-8">
-        <Link 
-          href="/blog" 
+        <Link
+          href="/blog"
           className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-accent transition-colors"
         >
           <ChevronLeft size={14} /> Back to Journal
@@ -108,26 +108,26 @@ export default async function BlogPostPage({ params }: Props) {
             <p className="text-2xl font-serif italic text-foreground leading-relaxed mb-12 border-l-4 border-accent pl-8 py-2">
               {post.excerpt}
             </p>
-            
-            <div className="space-y-8 text-foreground/80 font-light text-lg leading-relaxed">
-               {/* Splitting content for basic rendering - in real app would use MDX/CMS */}
-               {post.content.split('\n\n').map((para, i) => (
-                 <p key={i}>{para}</p>
-               ))}
-               
-               <p>
-                 When it comes to <strong>architecture in Indore</strong>, we see a unique blend of heritage and modernism. 
-                 Areas like Vijay Nagar and Palasia are becoming benchmarks for <strong>luxury home design in Madhya Pradesh</strong>. 
-                 As a lead architect, I believe the future lies in biophilic integration and structural honesty.
-               </p>
 
-               <div className="bg-muted p-8 md:p-12 my-12 border border-border">
-                 <h3 className="text-2xl font-serif mb-4 text-foreground italic">Join the Conversation</h3>
-                 <p className="text-muted-foreground mb-6">Are you planning a project in Indore? Let's discuss how we can blend technical excellence with your personal narrative.</p>
-                 <Link href="/contact" className="inline-block px-8 py-4 bg-accent text-white text-xs font-bold uppercase tracking-widest hover:scale-105 transition-transform">
-                    Start a Project
-                 </Link>
-               </div>
+            <div className="space-y-8 text-foreground/80 font-light text-lg leading-relaxed">
+              {/* Splitting content for basic rendering - in real app would use MDX/CMS */}
+              {post.content.split('\n\n').map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+
+              <p>
+                When it comes to <strong>architecture in Indore</strong>, we see a unique blend of heritage and modernism.
+                Areas like Anand Bazar and Palasia are becoming benchmarks for <strong>luxury home design in Madhya Pradesh</strong>.
+                As a lead architect, I believe the future lies in biophilic integration and structural honesty.
+              </p>
+
+              <div className="bg-muted p-8 md:p-12 my-12 border border-border">
+                <h3 className="text-2xl font-serif mb-4 text-foreground italic">Join the Conversation</h3>
+                <p className="text-muted-foreground mb-6">Are you planning a project in Indore? Let's discuss how we can blend technical excellence with your personal narrative.</p>
+                <Link href="/contact" className="inline-block px-8 py-4 bg-accent text-white text-xs font-bold uppercase tracking-widest hover:scale-105 transition-transform">
+                  Start a Project
+                </Link>
+              </div>
             </div>
           </div>
 

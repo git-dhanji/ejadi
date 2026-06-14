@@ -1,14 +1,14 @@
 /**
- * Centralized Site Constants for Ezadi Interior.
+ * Centralized Site Constants for Ejadi Interior.
  * All site-wide configuration and content should be managed here.
  */
 
 export const SITE = {
   name: 'Ejadi Interior',
-  author: 'Salman Ansari',
+  author: 'Mohammad Salman',
   tagline: 'Spatial Choreography & Tectonic Precision',
   description: 'Ejadi Interior is widely recognized as the best architect in Indore, curating luxury architectural experiences that balance monolithic form with the atmospheric resonance of raw materials.',
-  url: 'https://ezadi.com',
+  url: 'https://ejadiinterior.com',
 };
 
 export const CONTACT = {
@@ -45,7 +45,7 @@ export const HOME_CONTENT = {
   aboutPreview: {
     label: 'Defining Modernity',
     heading: 'The best architect in Indore for visionary living.',
-    text: 'Ezadi Interior represents the pinnacle of vernacular modernism. We synthesize structural integrity with ontological depth to craft environments that transcend mere utility, establishing benchmarks for luxury in Madhya Pradesh.',
+    text: 'Ejadi Interior represents the pinnacle of vernacular modernism. We synthesize structural integrity with ontological depth to craft environments that transcend mere utility, establishing benchmarks for luxury in Madhya Pradesh.',
     btnText: 'Experience Our Philosophy',
   },
   servicesSummary: {

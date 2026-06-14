@@ -169,7 +169,7 @@ export const Navbar = () => {
 
               {/* Footer of panel */}
               <div className="px-8 py-8 border-t border-border">
-                <p className="text-xs text-muted-foreground uppercase tracking-widest">Ezadi Interior Studio</p>
+                <p className="text-xs text-muted-foreground uppercase tracking-widest">Ejadi Interior Designer</p>
               </div>
             </motion.div>
           </>
