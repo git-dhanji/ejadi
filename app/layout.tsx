@@ -33,6 +33,7 @@ export const metadata: Metadata = {
 import { SmoothScroll } from '@/components/common/SmoothScroll';
 import { CustomCursor } from '@/components/common/CustomCursor';
 import { FloatingAction } from '@/components/common/FloatingAction';
+import { LocationMap } from '@/components/common/LocationMap';
 
 export default function RootLayout({
   children,
@@ -61,6 +62,7 @@ export default function RootLayout({
             <CustomCursor />
             <Navbar />
             <main className="grow">{children}</main>
+            <LocationMap />
             <Footer />
             <FloatingAction />
           </SmoothScroll>
