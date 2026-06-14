@@ -1,46 +1,44 @@
 export const ABOUT_DATA = {
   hero: {
-    title: "Defining Modernity Through Tectonic Integrity.",
     subtitle: "Founder & Lead Architect",
     name: "Mohmmad Salman",
-    description: "Specializing in the fusion of vernacular modernism and structural honesty, Mohammad Salman leads Ejadi Interior, widely recognized as the best architect in Indore.",
+    description: "Mohammad Salman leads Ejadi Interior — a design studio based in Indore, focused on thoughtful spaces that balance beauty and function.",
     // Dynamically loaded from Cloudinary via next-cloudinary
     portrait: "Gemini_Generated_Image_txbrintxbrintxbr_kchwoe",
   },
 
   narrative: {
     bio: [
-      "With over a decade of practice in Central India, Mohmmad Salman has established a signature paradigm that balances the gravity of monolithic form with the spatial choreography of luxury living.",
-      "His approach is fundamentally ontological—treating architecture not as a service, but as a permanent narrative. This philosophy allows for the creation of environments in Indore that are structurally bold yet performatively light.",
-      "Based in Anand bazaar, the studio under Salman's direction continues to push the boundaries of luxury residential design, synthesizing global standards with local heritage to define the future of architecture in Madhya Pradesh."
+      "Over a decade of practice in Central India has shaped a clear design language — honest materials, considered proportions, and spaces that feel both calm and alive.",
+      "Based in Anand Bazar, Indore, the studio works on residential and commercial projects with the same attention to detail, always rooted in the people who will live and work in them.",
     ],
-    quote: "Architecture is the reaching out for liberty through structural honesty."
+    quote: "Good design is quiet.",
   },
 
   philosophy: [
     {
-      title: "Material Honesty",
-      description: "We engage with materials in their most elemental state, allowing the tectonic integrity of the structure to speak without the need for superficial ornament."
+      title: "Materials",
+      description: "We let materials speak for themselves — no excess, no cover-up.",
     },
     {
-      title: "Phenomenological Scale",
-      description: "Our focus resides in the intimate touch-points where the human occupant intersects with monolithic form, ensuring a deep emotional resonance."
+      title: "Scale",
+      description: "Every space is designed around how people actually move and live in it.",
     },
     {
-      title: "Atmospheric Resonance",
-      description: "We orchestrate luminosity as a primary tectonic element, sculpting the spatial choreography and ontological depth of every interior."
-    }
+      title: "Light",
+      description: "Natural light is shaped as carefully as any wall or surface.",
+    },
   ],
   stats: [
     { label: "Founded", value: "2014" },
     { label: "Projects", value: "85+" },
     { label: "Awards", value: "12" },
-    { label: "Cities", value: "18" }
+    { label: "Cities", value: "18" },
   ],
   cta: {
-    label: "Collaborate",
-    heading: "Ready to sculpt your next space?",
-    buttonText: "Start a Project",
-    buttonLink: "/contact"
-  }
+    label: "Work with us",
+    heading: "Let's build something together.",
+    buttonText: "Get in Touch",
+    buttonLink: "/contact",
+  },
 };

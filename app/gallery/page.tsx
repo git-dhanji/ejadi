@@ -1,14 +1,12 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
 import { SafeImage } from "@/components/common/SafeImage";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, MapPin } from "lucide-react";
-import { PROJECTS } from "@/constants/projects";
-import { GALLERY_COLLECTION } from "@/constants/gallery_data";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/common/Container";
+import type { CloudinaryResource } from "@/app/api/gallery/route";
 
 const categories = [
   "All",
@@ -21,72 +19,51 @@ const categories = [
 interface GalleryItem {
   src: string;
   title: string;
-  slug: string;
   category: string;
-  location: string;
 }
 
-function buildGalleryItems(): GalleryItem[] {
-  const items: GalleryItem[] = [];
-  const seenUrls = new Set<string>(); // Track seen image URLs to avoid duplicates
+function cloudinaryToGalleryItems(resources: CloudinaryResource[]): GalleryItem[] {
+  return resources.map((r) => {
+    // Try to infer category from folder structure
+    const folderParts = r.public_id.split("/");
+    const folderName = folderParts.length > 1 ? folderParts[0] : "";
+    const matchedCategory = categories.find(
+      (c) => c !== "All" && folderName.toLowerCase().includes(c.toLowerCase())
+    );
 
-  // Add images from projects
-  PROJECTS.forEach((project) => {
-    // Add cover image if not seen
-    if (!seenUrls.has(project.coverImage)) {
-      items.push({
-        src: project.coverImage,
-        title: project.title,
-        slug: project.slug,
-        category: project.category,
-        location: project.location,
-      });
-      seenUrls.add(project.coverImage);
-    }
-
-    // Add project images if not seen
-    project.images?.forEach((img) => {
-      if (!seenUrls.has(img)) {
-        items.push({
-          src: img,
-          title: project.title,
-          slug: project.slug,
-          category: project.category,
-          location: project.location,
-        });
-        seenUrls.add(img);
-      }
-    });
+    return {
+      src: r.secure_url,
+      title: folderParts[folderParts.length - 1].replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+      category: matchedCategory ?? "Residential",
+    };
   });
-
-  // Add the curated gallery collection (only if not already seen)
-  GALLERY_COLLECTION.forEach((item) => {
-    if (!seenUrls.has(item.src)) {
-      items.push({
-        src: item.src,
-        title: item.title,
-        slug: '#', // Moodboard items don't have dedicated project pages
-        category: item.category,
-        location: item.location,
-      });
-      seenUrls.add(item.src);
-    }
-  });
-
-  // Shuffle items for a more curated/moodboard feel
-  return items.sort(() => Math.random() - 0.5);
 }
 
 export default function GalleryPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const allItems = buildGalleryItems();
+  const [allItems, setAllItems] = useState<GalleryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  // Force scroll to top when page mounts
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/gallery")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.resources) {
+          setAllItems(cloudinaryToGalleryItems(data.resources as CloudinaryResource[]));
+        } else {
+          setError(true);
+        }
+      })
+      .catch(() => setError(true))
+      .finally(() => setLoading(false));
   }, []);
 
   const filtered =
@@ -107,7 +84,6 @@ export default function GalleryPage() {
     setLightboxIndex((lightboxIndex + 1) % filtered.length);
   }, [lightboxIndex, filtered.length]);
 
-  // Keyboard navigation
   useEffect(() => {
     if (lightboxIndex === null) return;
     const handler = (e: KeyboardEvent) => {
@@ -119,12 +95,9 @@ export default function GalleryPage() {
     return () => window.removeEventListener("keydown", handler);
   }, [lightboxIndex, prev, next]);
 
-  // Lock body scroll when lightbox open
   useEffect(() => {
     document.body.style.overflow = lightboxIndex !== null ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [lightboxIndex]);
 
   const currentItem = lightboxIndex !== null ? filtered[lightboxIndex] : null;
@@ -146,15 +119,12 @@ export default function GalleryPage() {
             {categories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => {
-                  setActiveCategory(cat);
-                  setLightboxIndex(null);
-                }}
+                onClick={() => { setActiveCategory(cat); setLightboxIndex(null); }}
                 className={cn(
                   "text-[10px] uppercase tracking-widest font-bold transition-all duration-300 relative py-1",
                   activeCategory === cat
                     ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground",
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 {cat}
@@ -171,78 +141,90 @@ export default function GalleryPage() {
         </div>
       </Container>
 
-      {/* ── Masonry Grid ── */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeCategory}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
-          className="px-0"
-        >
-          <Container>
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
-              {filtered.map((item, index) => (
-                <motion.div
-                  key={`${item.slug}-${index}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.6,
-                    delay: (index % 6) * 0.05,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="relative break-inside-avoid mb-4 overflow-hidden group cursor-pointer"
-                  onClick={() => openLightbox(index)}
-                >
-                  <SafeImage
-                    src={item.src}
-                    alt={item.title}
-                    width={800}
-                    height={600}
-                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500 flex items-end p-4">
-                    <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 w-full">
-                      {/* Category badge */}
-                      <span className="inline-block mb-2 px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.3em] bg-accent text-white rounded-full">
-                        {item.category}
-                      </span>
-                      {/* Title */}
-                      <p className="text-white font-serif text-base leading-tight mb-2 drop-shadow-lg">
-                        {item.title}
-                      </p>
-                      {/* Location badge */}
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest bg-black/50 backdrop-blur-sm text-white/90 rounded-full border border-white/20">
-                        <MapPin size={9} className="shrink-0" />
-                        {item.location}
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </Container>
+      {/* ── Loading skeleton ── */}
+      {loading && (
+        <Container>
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
+            {Array.from({ length: 9 }).map((_, i) => (
+              <div
+                key={i}
+                className="break-inside-avoid mb-4 bg-muted animate-pulse rounded-sm"
+                style={{ height: `${220 + (i % 3) * 80}px` }}
+              />
+            ))}
+          </div>
+        </Container>
+      )}
 
-          {filtered.length === 0 && (
-            <div className="flex flex-col items-center justify-center py-40">
-              <p className="font-serif text-2xl text-muted-foreground opacity-30">
-                No images found.
-              </p>
-              <button
-                onClick={() => setActiveCategory("All")}
-                className="mt-6 text-xs font-bold uppercase tracking-widest text-accent hover:underline"
-              >
-                Show all
-              </button>
-            </div>
-          )}
-        </motion.div>
-      </AnimatePresence>
+      {/* ── Error state ── */}
+      {!loading && error && (
+        <div className="flex flex-col items-center justify-center py-40 text-center">
+          <p className="font-serif text-2xl text-muted-foreground opacity-40">
+            Could not load gallery.
+          </p>
+          <p className="text-xs text-muted-foreground mt-2 opacity-30">
+            Check your Cloudinary credentials.
+          </p>
+        </div>
+      )}
+
+      {/* ── Masonry Grid ── */}
+      {!loading && !error && (
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeCategory}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <Container>
+              <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
+                {filtered.map((item, index) => (
+                  <motion.div
+                    key={`${item.src}-${index}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.6,
+                      delay: (index % 6) * 0.05,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="relative break-inside-avoid mb-4 overflow-hidden group cursor-pointer"
+                    onClick={() => openLightbox(index)}
+                  >
+                    <SafeImage
+                      src={item.src}
+                      alt={item.title}
+                      width={800}
+                      height={600}
+                      className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                    {/* Subtle dim on hover — no text */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500" />
+                  </motion.div>
+                ))}
+              </div>
+
+              {filtered.length === 0 && (
+                <div className="flex flex-col items-center justify-center py-40">
+                  <p className="font-serif text-2xl text-muted-foreground opacity-30">
+                    No images found.
+                  </p>
+                  <button
+                    onClick={() => setActiveCategory("All")}
+                    className="mt-6 text-xs font-bold uppercase tracking-widest text-accent hover:underline"
+                  >
+                    Show all
+                  </button>
+                </div>
+              )}
+            </Container>
+          </motion.div>
+        </AnimatePresence>
+      )}
 
       {/* ── Lightbox ── */}
       <AnimatePresence>
@@ -253,10 +235,9 @@ export default function GalleryPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-100 bg-black/95 backdrop-blur-sm flex items-center justify-center"
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center"
             onClick={closeLightbox}
           >
-            {/* Close */}
             <button
               onClick={closeLightbox}
               className="absolute top-6 right-6 z-10 w-11 h-11 flex items-center justify-center rounded-full border-2 border-white/20 text-white hover:border-white/60 hover:bg-white/10 transition-all"
@@ -265,24 +246,18 @@ export default function GalleryPage() {
               <X size={16} strokeWidth={1.5} />
             </button>
 
-            {/* Counter */}
             <div className="absolute top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold uppercase tracking-widest text-white/40">
               {lightboxIndex + 1} / {filtered.length}
             </div>
 
-            {/* Prev */}
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                prev();
-              }}
+              onClick={(e) => { e.stopPropagation(); prev(); }}
               className="absolute left-4 md:left-8 z-10 w-12 h-12 flex items-center justify-center rounded-full border-2 border-white/20 text-white hover:border-white/60 hover:bg-white/10 transition-all"
               aria-label="Previous"
             >
               <ChevronLeft size={20} strokeWidth={1.5} />
             </button>
 
-            {/* Image */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={lightboxIndex}
@@ -301,26 +276,11 @@ export default function GalleryPage() {
                   className="w-full h-auto max-h-[80vh] object-contain"
                   priority
                 />
-                {/* Caption */}
-                <div className="mt-4 flex items-center justify-between">
-                  <div>
-                    <p className="text-[9px] font-bold uppercase tracking-[0.4em] text-accent mb-1">
-                      {currentItem.category}
-                    </p>
-                    <p className="text-white font-serif text-lg">
-                      {currentItem.title}
-                    </p>
-                  </div>
-                </div>
               </motion.div>
             </AnimatePresence>
 
-            {/* Next */}
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                next();
-              }}
+              onClick={(e) => { e.stopPropagation(); next(); }}
               className="absolute right-4 md:right-8 z-10 w-12 h-12 flex items-center justify-center rounded-full border-2 border-white/20 text-white hover:border-white/60 hover:bg-white/10 transition-all"
               aria-label="Next"
             >
